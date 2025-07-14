@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Symbool - Boolean Optimization</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="static/symbool logo finall.svg">
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+<body class="page-landing">
+   <!-- ========== LOADER ========== -->
+  <div id="intro-loader">
+  <div class="logo-reveal">
+    <div class="logo-symbol-wrapper">
+      <img src="/static/intro logo.svg" alt="Logo Utama" class="logo-symbol" />
+    </div>
+    <div class="logo-text-wrapper">
+      <img src="/static/intro logo text.svg" alt="Logo Teks" class="logo-text" />
+    </div>
+    <div class="logo-mask"></div>
+  </div>
+</div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="#" class="logo-full" data-target="landingPage">
+        <img src="static/logo symbooll.svg" alt="Symbool logo">
+      </a>
+      <a href="#" class="logo-icon" data-target="landingPage">
+        <img src="static/logo mobile.svg" alt="Symbool logo2">
+      </a>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#" data-target="landingPage">Beranda</a></li>
+      <li><a href="#" data-target="calculatorPage">Kalkulator</a></li>
+      <li><a href="#" data-target="aboutPage">Tentang</a></li>
+      <span class="hover-line"></span>
+    </ul>
+      
+    <div class="navbar-icons">
+    <div class="hamburger" id="hamburger">☰</div>
+    <div class="user-menu">
+      <button id="userAvatar" class="avatar-btn">
+        <img src="/static/usernavbutton.svg" alt="User Avatar" class="avatar-img">
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== SIDEBAR ========== -->
+  <aside id="accountSidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="user-banner">
+        <div class="user-row">
+          <img src="/static/user_avatar.svg" class="sidebar-avatar" alt="User Avatar">
+          <div class="user-name">John Michael Doe</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-scrollable">
+      <ul class="sidebar-menu">
+        <li class="sidebar-section">
+          <strong>
+            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <lord-icon
+              src="https://cdn.lordicon.com/kdduutaw.json"
+              trigger="hover"
+              stroke="bold"
+              colors="primary:#0D47A1,secondary:#0D47A1"
+              style="width:25px;height:25px">
+            </lord-icon>Profile
+          </strong>
+          <ul class="sidebar-submenu">
+            <li><span data-tab="updateProfileTab">Update Profile</span> <span class="submenu-arrow">›</span></li>
+            <li><span data-tab="badgesTab">Badges & Certificates</span> <span class="submenu-arrow">›</span></li>
+            <li><span data-tab="discountsTab">Discounts</span> <span class="submenu-arrow">›</span></li>
+            <li><span data-tab="historyTab">Learning History</span> <span class="submenu-arrow">›</span></li>
+            <li><span data-tab="transcriptTab">Transcript</span> <span class="submenu-arrow">›</span></li>
+          </ul>
+        </li>
+
+        <li class="dropdown-item language-dropdown">
+          <strong>
+            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <lord-icon
+                src="https://cdn.lordicon.com/rpviwvwn.json"
+                trigger="hover"
+                stroke="bold"
+                colors="primary:#0D47A1,secondary:#0D47A1"
+                style="width:25px;height:25px">
+            </lord-icon>Language
+          </strong>
+          <div class="dropdown-toggle">
+            <span class="current-language">Indonesia (default)</span>
+            <span class="submenu-arrow">▾</span>
+          </div>
+        </li>
+
+        <li class="sidebar-section">
+          <strong>
+            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <lord-icon
+                src="https://cdn.lordicon.com/jdgfsfzr.json"
+                trigger="hover"
+                stroke="bold"
+                colors="primary:#0D47A1,secondary:#0D47A1"
+                style="width:25px;height:25px">
+            </lord-icon>Support
+          </strong>
+          <ul>
+            <li>
+              <span data-target="supportPage">Support</span>
+              <span class="submenu-arrow">›</span>
+            </li>
+            <li>
+              <span data-target="feedbackPage">Feedback</span>
+              <span class="submenu-arrow">›</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <button class="logout-btn bottom">Logout</button>
+    </div>
+  </aside>
+
+
+  <button id="backButton" class="back-btn">
+  <img id="backIcon" src="/static/back button.svg" alt="Kembali">
+  <span class="back-text">Kembali</span>
+</button>
+
+  <!-- Circle Background -->
+  <div class="circle-bg"></div>
+  <div class="circle-bg2"></div>
+  <div class="illustration-bg"></div>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main>
+    <!-- === LANDING PAGE === -->
+    <section id="landingPage" class="page-section active">
+      <div id="landingContent">
+        <h1>Symbool For You!</h1>
+        <p>Pelajari dan optimalkan logika Boolean secara interaktif <br>
+          dengan cara yang lebih seru dan mudah dipahami.</p>
+        <button id="enterButton">Get Started</button>
+      </div>
+    </section>
+
+    <!-- === CALCULATOR PAGE === -->
+    <section id="calculatorPage" class="page-section">
+      <div class="calculator-wrapper">
+        <h1>Kalkulator Fungsi Boolean</h1>
+
+        <!-- Input & Error -->
+        <input type="text" id="expression" placeholder="Contoh: (A ∧ B) ∨ ¬C atau A ⊕ B" autofocus />
+        <div id="inputError" class="error-message hidden">Masukkan ekspresi Boolean terlebih dahulu.</div>
+
+        <!-- Logic Buttons -->
+        <div class="logic-buttons-container">
+          <button class="logic-button" data-symbol="¬">¬ (not)</button>
+          <button class="logic-button" data-symbol="∧">∧ (and)</button>
+          <button class="logic-button" data-symbol="∨">∨ (or)</button>
+          <button class="logic-button" data-symbol="↑">↑ (nand)</button>
+          <button class="logic-button" data-symbol="↓">↓ (nor)</button>
+          <button class="logic-button" data-symbol="⊕">⊕ (xor)</button>
+          <button class="logic-button" data-symbol="↔">↔ (xnor)</button>
+          <button class="logic-button" data-symbol="→">→ (implikasi)</button>
+          <button class="logic-button" data-symbol="(">(</button>
+          <button class="logic-button" data-symbol=")">)</button>
+          <button class="logic-button" data-symbol="⊤">⊤ (true)</button>
+          <button class="logic-button" data-symbol="⊥">⊥ (false)</button>
+        </div>
+
+        <!-- Metode Pilihan -->
+        <div class="action-row">
+          <div class="method-select">
+            <label for="method">Metode:</label>
+            <select id="method">
+              <option value="default">Simplify (default)</option>
+              <option value="kmap">Karnaugh Map</option>
+              <option value="qm">Quine-McCluskey</option>
+            </select>
+          </div>
+
+          <div class="action-buttons">
+            <button id="optimizeBtn">Optimalkan</button>
+            <button id="clearBtn" class="secondary">Clear All</button>
+          </div>
+        </div>
+        <div class="result-section">
+          <p><strong>Disederhanakan:</strong> <span id="result">&ndash;</span></p>
+          <p><strong>Penjelasan:</strong> <span id="explanation">&ndash;</span></p>
+          <p><strong>Waktu Proses:</strong> <span id="duration">&ndash;</span></p>
+
+          <button id="toggleDetailBtn" class="secondary hidden">Lihat Selengkapnya</button>
+          <div id="detailContainer" class="hidden"></div>
+        </div>
+
+        <!-- ========== KMAP RESULT ========== -->
+        <div id="kmapContainer"></div>
+        <!-- Hasil Minterm & Nilai -->
+        <div id="mintermResult" class="minterm-container hidden">
+          <h3>Hasil Minterm</h3>
+          <p><strong>Daftar Minterm:</strong> <span id="mintermList">-</span></p>
+          <p><strong>Nilai Minterm:</strong> <span id="mintermValues">-</span></p>
+        </div>
+
+        <div id="primeImplicantsResult" class="hidden"></div>
+        <div id="tableResult"></div>
+
+        <div class="export-container hidden">
+          <button id="exportBtn">Ekspor Tabel ke CSV</button>
+        </div>
+
+        <div class="bottom-spacer"></div>
+      </div>
+    </section>
+
+    <!-- === ABOUT PAGE === -->
+    <section id="aboutPage" class="page-section">
+      <h1>Tentang SymBOOL</h1>
+      <p>Aplikasi ini dibuat untuk mempermudah optimisasi fungsi logika secara otomatis, serta menampilkan penjelasan berbasis aturan logika untuk pembelajaran.</p>
+    </section>
+
+
+<section id="profilePage" class="page-section">
+  <div class="profile-banner">
+    <img src="/static/bannerprofilee.jpg" alt="Banner" class="banner-img" />
+
+    <div class="profile-info-container">
+      <div class="profile-picture-wrapper">
+        <div class="profile-picture-large">
+          <img src="/static/user_avatar pp.svg" alt="Foto Profil">
+        </div>
+        <button class="edit-picture-btn">✎</button>
+      </div>
+      <div class="profile-text-info">
+        <p class="welcome-text">Welcome,</p>
+        <p class="profile-username-large">John Michael Doe</p>
+        <p class="profile-role">Learner • Symbool Academy</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+<div class="profile-tabs-bar">
+  <button class="tab-btn active" data-tab="updateProfileTab">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+<lord-icon
+    src="https://cdn.lordicon.com/kdduutaw.json"
+    trigger="hover"
+    stroke="bold"
+    state="hover-looking-around"
+    colors="primary:#000000,secondary:#000000"
+    style="width:27px;height:27px">
+</lord-icon>
+    Profile
+  </button>
+
+  <div class="tab-divider"></div>
+
+  <button class="tab-btn" data-tab="badgesTab">
+   <lord-icon
+    src="https://cdn.lordicon.com/qhviklyi.json"
+    trigger="hover"
+    colors="primary:#121331,secondary:#08a88a"
+    style="width:33px;height:33px">
+</lord-icon>
+    Badges & Certificates
+  </button>
+
+  <div class="tab-divider"></div>
+
+  <button class="tab-btn" data-tab="discountsTab">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+<lord-icon
+    src="https://cdn.lordicon.com/dkobpcrm.json"
+    trigger="hover"
+    stroke="bold"
+    colors="primary:#000000,secondary:#000000"
+    style="width:28px;height:28px">
+</lord-icon>
+    Discounts
+  </button>
+
+  <div class="tab-divider"></div>
+
+  <button class="tab-btn" data-tab="historyTab">
+    <lord-icon
+      src="https://cdn.lordicon.com/puvaffet.json"
+      trigger="hover"
+      colors="primary:#000000,secondary:#000000"
+      style="width:33px;height:33px">
+    </lord-icon>
+    Learning History
+  </button>
+
+  <div class="tab-divider"></div>
+
+  <button class="tab-btn" data-tab="transcriptTab">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+<lord-icon
+    src="https://cdn.lordicon.com/fjvfsqea.json"
+    trigger="hover"
+    stroke="bold"
+    colors="primary:#000000,secondary:#000000"
+    style="width:25px;height:25px">
+</lord-icon>
+    Transcript
+  </button>
+</div>
+
+<!-- TAB CONTENT -->
+<div class="profile-tab-content">
+  <!-- Profile Tab -->
+  <div id="updateProfileTab" class="tab-content active">
+    <h2>Update Profile</h2>
+    <form class="update-profile-form">
+
+  <!-- Baris 1: 4 Kolom -->
+  <div class="form-row form-row-4">
+    <div class="form-group">
+      <label for="firstName">Nama Depan<span class="required-red">*</span></label>
+      <input type="text" id="firstName" placeholder="ex: Indira">
+    </div>
+    <div class="form-group">
+      <label for="lastName">Nama Belakang<span class="required-red">*</span></label>
+      <input type="text" id="lastName" placeholder="ex: Seruni">
+    </div>
+    <div class="form-group">
+      <label for="country">Country or Region<span class="required-black">*</span></label>
+      <select id="country">
+        <option selected>Indonesia</option>
+        <option>Afghanistan</option>
+        <option>Albania</option>
+        <option>Algeria</option>
+        <option>Andorra</option>
+        <option>Angola</option>
+        <option>Antigua and Barbuda</option>
+        <option>Argentina</option>
+        <option>Armenia</option>
+        <option>Australia</option>
+        <option>Austria</option>
+        <option>Azerbaijan</option>
+        <option>Bahamas</option>
+        <option>Bahrain</option>
+        <option>Bangladesh</option>
+        <option>Barbados</option>
+        <option>Belarus</option>
+        <option>Belgium</option>
+        <option>Belize</option>
+        <option>Benin</option>
+        <option>Bhutan</option>
+        <option>Bolivia</option>
+        <option>Bosnia and Herzegovina</option>
+        <option>Botswana</option>
+        <option>Brazil</option>
+        <option>Brunei</option>
+        <option>Bulgaria</option>
+        <option>Burkina Faso</option>
+        <option>Burundi</option>
+        <option>Cambodia</option>
+        <option>Cameroon</option>
+        <option>Canada</option>
+        <option>Cape Verde</option>
+        <option>Central African Republic</option>
+        <option>Chad</option>
+        <option>Chile</option>
+        <option>China</option>
+        <option>Colombia</option>
+        <option>Comoros</option>
+        <option>Costa Rica</option>
+        <option>Croatia</option>
+        <option>Cuba</option>
+        <option>Cyprus</option>
+        <option>Czech Republic</option>
+        <option>Democratic Republic of the Congo</option>
+        <option>Denmark</option>
+        <option>Djibouti</option>
+        <option>Dominica</option>
+        <option>Dominican Republic</option>
+        <option>Ecuador</option>
+        <option>Egypt</option>
+        <option>El Salvador</option>
+        <option>Equatorial Guinea</option>
+        <option>Eritrea</option>
+        <option>Estonia</option>
+        <option>Eswatini</option>
+        <option>Ethiopia</option>
+        <option>Fiji</option>
+        <option>Finland</option>
+        <option>France</option>
+        <option>Gabon</option>
+        <option>Gambia</option>
+        <option>Georgia</option>
+        <option>Germany</option>
+        <option>Ghana</option>
+        <option>Greece</option>
+        <option>Grenada</option>
+        <option>Guatemala</option>
+        <option>Guinea</option>
+        <option>Guinea-Bissau</option>
+        <option>Guyana</option>
+        <option>Haiti</option>
+        <option>Honduras</option>
+        <option>Hungary</option>
+        <option>Iceland</option>
+        <option>India</option>
+        <option>Iran</option>
+        <option>Iraq</option>
+        <option>Ireland</option>
+        <option>Israel</option>
+        <option>Italy</option>
+        <option>Jamaica</option>
+        <option>Japan</option>
+        <option>Jordan</option>
+        <option>Kazakhstan</option>
+        <option>Kenya</option>
+        <option>Kiribati</option>
+        <option>Kuwait</option>
+        <option>Kyrgyzstan</option>
+        <option>Laos</option>
+        <option>Latvia</option>
+        <option>Lebanon</option>
+        <option>Lesotho</option>
+        <option>Liberia</option>
+        <option>Libya</option>
+        <option>Liechtenstein</option>
+        <option>Lithuania</option>
+        <option>Luxembourg</option>
+        <option>Madagascar</option>
+        <option>Malawi</option>
+        <option>Malaysia</option>
+        <option>Maldives</option>
+        <option>Mali</option>
+        <option>Malta</option>
+        <option>Marshall Islands</option>
+        <option>Mauritania</option>
+        <option>Mauritius</option>
+        <option>Mexico</option>
+        <option>Micronesia</option>
+        <option>Moldova</option>
+        <option>Monaco</option>
+        <option>Mongolia</option>
+        <option>Montenegro</option>
+        <option>Morocco</option>
+        <option>Mozambique</option>
+        <option>Myanmar</option>
+        <option>Namibia</option>
+        <option>Nauru</option>
+        <option>Nepal</option>
+        <option>Netherlands</option>
+        <option>New Zealand</option>
+        <option>Nicaragua</option>
+        <option>Niger</option>
+        <option>Nigeria</option>
+        <option>North Korea</option>
+        <option>North Macedonia</option>
+        <option>Norway</option>
+        <option>Oman</option>
+        <option>Pakistan</option>
+        <option>Palau</option>
+        <option>Panama</option>
+        <option>Papua New Guinea</option>
+        <option>Paraguay</option>
+        <option>Peru</option>
+        <option>Philippines</option>
+        <option>Poland</option>
+        <option>Portugal</option>
+        <option>Qatar</option>
+        <option>Romania</option>
+        <option>Russia</option>
+        <option>Rwanda</option>
+        <option>Saint Kitts and Nevis</option>
+        <option>Saint Lucia</option>
+        <option>Saint Vincent and the Grenadines</option>
+        <option>Samoa</option>
+        <option>San Marino</option>
+        <option>Sao Tome and Principe</option>
+        <option>Saudi Arabia</option>
+        <option>Senegal</option>
+        <option>Serbia</option>
+        <option>Seychelles</option>
+        <option>Sierra Leone</option>
+        <option>Singapore</option>
+        <option>Slovakia</option>
+        <option>Slovenia</option>
+        <option>Solomon Islands</option>
+        <option>Somalia</option>
+        <option>South Africa</option>
+        <option>South Korea</option>
+        <option>South Sudan</option>
+        <option>Spain</option>
+        <option>Sri Lanka</option>
+        <option>Sudan</option>
+        <option>Suriname</option>
+        <option>Sweden</option>
+        <option>Switzerland</option>
+        <option>Syria</option>
+        <option>Taiwan</option>
+        <option>Tajikistan</option>
+        <option>Tanzania</option>
+        <option>Thailand</option>
+        <option>Timor-Leste</option>
+        <option>Togo</option>
+        <option>Tonga</option>
+        <option>Trinidad and Tobago</option>
+        <option>Tunisia</option>
+        <option>Turkey</option>
+        <option>Turkmenistan</option>
+        <option>Tuvalu</option>
+        <option>Uganda</option>
+        <option>Ukraine</option>
+        <option>United Arab Emirates</option>
+        <option>United Kingdom</option>
+        <option>United States</option>
+        <option>Uruguay</option>
+        <option>Uzbekistan</option>
+        <option>Vanuatu</option>
+        <option>Vatican City</option>
+        <option>Venezuela</option>
+        <option>Vietnam</option>
+        <option>Yemen</option>
+        <option>Zambia</option>
+        <option>Zimbabwe</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="state">State<span class="required-black">*</span></label>
+      <select id="state">
+      </select>
+    </div>
+  </div>
+
+  <!-- Baris 2: Email + Change Button -->
+  <div class="form-row form-row-email">
+    <div class="form-group email-group">
+      <label for="email">Email</label>
+      <div class="email-inline">
+        <input type="email" id="email" placeholder="you@example.com">
+        <button type="button" class="change-email-btn">Change Email</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Baris 3: Language -->
+  <div class="form-group">
+    <label for="language">Bahasa</label>
+    <select id="language">
+      <option>Indonesia</option>
+      <option>English (US)</option>
+      <option>English (UK)</option>
+      <option>Español</option>
+      <option>Français</option>
+      <option>Deutsch</option>
+      <option>Português (BR)</option>
+      <option>中文 (简体)</option>
+      <option>日本語</option>
+      <option>한국어</option>
+      <option>العربية</option>
+      <option>हिन्दी</option>
+      <option>ไทย</option>
+    </select>
+  </div>
+
+  <!-- Bagian Informasi Tambahan -->
+<!-- Checkbox: Setuju informasi tambahan -->
+<div class="form-group checkbox-group">
+  <label>
+    <input type="checkbox" id="provideMoreInfo" checked>
+    Saya setuju untuk memberikan informasi tambahan tentang diri saya.
+  </label>
+</div>
+
+<!-- Baris Gender & Disability -->
+<div class="form-row form-row-2">
+  <div class="form-group">
+    <label for="gender">Jenis Kelamin</label>
+    <div class="custom-select-wrapper">
+      <select id="gender">
+        <option selected>Pilih untuk tidak mengatakan</option>
+        <option>Laki-laki</option>
+        <option>Perempuan</option>
+      </select>
+      <span class="custom-arrow">&#9662;</span>
+    </div>
+    <small>Jenis kelamin digunakan untuk pelaporan dampak, mendukung penelitian pendidikan, dan penghargaan instruktur.</small>
+  </div>
+  <div class="form-group">
+    <label for="disability">Disabilitas</label>
+    <div class="custom-select-wrapper">
+      <select id="disability">
+        <option selected>Pilih untuk tidak mengatakan</option>
+        <option>Ya</option>
+        <option>Tidak</option>
+      </select>
+      <span class="custom-arrow">&#9662;</span>
+    </div>
+    <small>Informasi disabilitas hanya digunakan untuk tujuan pelaporan dampak dan tidak terkait dengan akun Anda.</small>
+  </div>
+</div>
+
+<!-- Checkbox: Subscribe -->
+<div class="form-group checkbox-group">
+  <label>
+    <input type="checkbox" id="subscribeCommunications" checked>
+    Saya ingin menerima komunikasi dan pembaruan tentang program ini, termasuk informasi fitur dan penawaran pembelajaran terbaru dari Symbool, platform kalkulator logika Boolean. Saya memahami bahwa saya dapat berhenti berlangganan kapan saja.
+  </label>
+  <small class="note-subscribe">
+    Dengan tidak berlangganan, Anda tidak akan menerima komunikasi promosi, tetapi akan tetap menerima pembaruan penting terkait perjalanan belajar dan status akun melalui email.
+  </small>
+</div>
+
+  <button type="submit" class="primary-btn">Simpan Perubahan</button>
+</form>
+  </div>
+
+    <!-- Other Tabs -->
+    <div id="badgesTab" class="tab-content">
+      <div class="empty-badges">
+        <img src="/static/no_badges.svg" alt="No Badges" />
+        <h3>No badges and certificates to display!</h3>
+        <p>Enroll into a calculator to earn your badge and certificate.</p>
+      </div>
+    </div>
+
+    <div id="discountsTab" class="tab-content">
+      <div class="empty-discount">
+        <img src="/static/no_discount.svg" alt="No Discount" />
+        <h3>No Discount Available!</h3>
+        <p>Check back later for special offers and discounts.</p>
+      </div>
+    </div>
+
+    <div id="historyTab" class="tab-content">
+      <div class="empty-history">
+        <img src="/static/no_learning.svg" alt="No History" />
+        <h3>There is no learning history yet!</h3>
+        <p>Start learning to see your history here.</p>
+      </div>
+    </div>
+
+    <div id="transcriptTab" class="tab-content">
+      <div class="empty-transcript">
+        <img src="/static/no_trancript.svg" alt="No Transcript" />
+        <h3>No Transcript Here!</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === SUPPORT PAGE === -->
+<section id="supportPage" class="page-section">
+  <div class="support-container">
+    <!-- Form Kontak -->
+    <div class="support-form">
+      <h1>Hubungi Kami</h1>
+      <p>Tim dukungan Symbool siap membantu Anda.</p>
+      <form>
+        <!-- Nama Depan & Belakang -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Nama Depan</label>
+            <input type="text" id="firstName" placeholder="ex: Indira" required />
+            <div class="input-underline"></div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Nama Belakang</label>
+            <input type="text" id="lastName" placeholder="ex: Seruni" required />
+            <div class="input-underline"></div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="your@example.com" required />
+          <div class="input-underline"></div>
+        </div>
+
+        <!-- Nomor Telepon -->
+        <div class="form-group">
+          <label for="phone">Nomor Telepon</label>
+          <div class="phone-group">
+            <select aria-label="Kode Negara">
+              <option value="+62">+62 (ID)</option>
+              <option value="+1">+1 (US)</option>
+              <option value="+44">+44 (UK)</option>
+              <option value="+61">+61 (AU)</option>
+              <option value="+81">+81 (JP)</option>
+              <option value="+86">+86 (CN)</option>
+              <option value="+65">+65 (SG)</option>
+              <option value="+60">+60 (MY)</option>
+              <option value="+91">+91 (IN)</option>
+              <option value="+49">+49 (DE)</option>
+              <option value="+33">+33 (FR)</option>
+              <option value="+7">+7 (RU)</option>
+              <option value="+82">+82 (KR)</option>
+              <option value="+971">+971 (AE)</option>
+              <option value="+34">+34 (ES)</option>
+              <option value="+39">+39 (IT)</option>
+              <!-- Tambahkan negara lain -->
+            </select>
+            <input type="tel" placeholder="xxx xxxx xxxx" required />
+          </div>
+          <div class="input-underline"></div>
+        </div>
+
+        <!-- Pesan -->
+        <div class="form-group">
+          <label for="message">Pesan</label>
+          <textarea id="message" rows="4" placeholder="Tulis pesan Anda di sini..." required></textarea>
+          <div class="input-underline"></div>
+        </div>
+
+        <div class="file-drop-area">
+          <img src="/static/upload file.svg" alt="Upload Icon" class="upload-icon">
+          <span class="file-msg">Click atau drag dan drop file Anda ke sini</span>
+          <input 
+            type="file"
+            id="file"
+            class="file-input"
+            accept=".jpg,.jpeg,.png,.svg,.pdf" />
+          <small class="file-hint">JPG, PNG, SVG, PDF | Maks. 5 MB</small>
+
+          <!-- ✅ NEW: Preview container -->
+          <div class="file-preview"></div>
+        </div>
+
+        <!-- Tombol Aksi -->
+        <div class="form-actions">
+          <button type="submit" class="primary-btn">Kirim Pesan</button>
+          <button type="reset" class="secondary-btn">Batalkan</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Ilustrasi -->
+    <div class="support-image">
+      <img src="/static/ilustrasi_banner.svg" alt="Ilustrasi Dukungan Symbool" />
+    </div>
+  </div>
+</section>
+
+<!-- === FEEDBACK PAGE === -->
+<section id="feedbackPage" class="page-section">
+  <div class="feedback-container">
+    <div class="feedback-box">
+      <div class="feedback-header">
+        <h2>How are you feeling?</h2>
+        <p>Your input is valuable in helping us better understand your needs and tailor our service accordingly.</p>
+      </div>
+
+      <div class="feedback-emojis">
+        <button class="emoji-button" data-value="terrible" title="Terrible">🤭</button>
+        <button class="emoji-button" data-value="bad" title="Bad">😔</button>
+        <button class="emoji-button selected" data-value="medium" title="Medium">😐</button>
+        <button class="emoji-button" data-value="good" title="Good">😊</button>
+        <button class="emoji-button" data-value="excellent" title="Excellent">😁</button>
+
+        <!-- Hanya satu caption -->
+        <span id="emojiCaption" class="emoji-caption-indicator">Medium</span>
+      </div>
+
+      <textarea id="feedbackComment" placeholder="Add a comment..."></textarea>
+      <button class="submit-feedback-btn">Submit Now</button>
+    </div>
+  </div>
+</section>
+</main>
+
+  <!-- ========== NOSCRIPT WARNING ========== -->
+  <noscript>
+    <div style="text-align: center; color: red;">
+      <p>Aktifkan JavaScript untuk menggunakan aplikasi ini.</p>
+    </div>
+  </noscript>
+
+  <!-- ========== SCRIPT ========== -->
+  <script src="static/script.js"></script>
+</body>
+</html>
